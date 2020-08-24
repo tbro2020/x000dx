@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x000dx</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <style>
+        .bottom-space{
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body class="container bg-dark text-light">
+    <br>
+        <h1>Dashboard</h1>
+    <hr>
+    <div class="row" id="devices-list">
+        <div class="col">
+            <br>
+            <h3 class="text-center">No device found...</h3>
+            <br>
+        </div>
+    </div>
+</body>
+
+<script>
+    const socket = io('http://localhost');
+    socket.on('connect', function(){
+        console.log("Client connected");
+        socket.emit("get-rooms");
+    });
+
+    function updateRooms(rooms){
+        var devicesList = document.getElementById("devices-list");
+        devicesList.innerHTML = "";
+        
+        for(var k in rooms){
+            if(k.indexOf("dx-") == -1){
+                continue;
+            }
+            var col = document.createElement("div");
+            col.className = "col-md-3 bottom-space";
+
+            var button = document.createElement("a");
+            button.className = "btn btn-primary col text-center";
+            button.href = "/device/"+k;
+
+            var b = document.createElement("b");
+            b.innerHTML = k;
+
+            button.appendChild(b);
+            col.appendChild(button);
+
+            devicesList.appendChild(col);
+        }
+
+        if(devicesList.childElementCount <= 0){
+            var col = document.createElement("div");
+            col.className = "col";
+
+            var h = document.createElement("h3");
+            h.className = "text-center";
+            h.innerHTML = "No device found..."
+
+            col.append(document.createElement("br"));
+            col.append(h)
+            col.append(document.createElement("br"));
+
+            devicesList.append(col);
+        }
+    }
+
+    socket.on('rooms', function(data){
+        updateRooms(data);
+    });
+</script>
+</html>

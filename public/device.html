@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x000dx</title>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
+</head>
+
+<body class="container bg-dark text-light">
+    <div class="col">
+        <br>
+            <h3>Dashboard</h3>
+        <br>
+        <div class="row">
+            <div class="col-md-5" style="margin-bottom: 1%;">
+                <div class="card text-dark">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col">
+                                <h5 style="margin-top: 8px;">Device Info</h5>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <button id="x000pw-btn" class="btn btn-primary">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text" id="device-info">
+                            <div class="text-center">
+                                <small>Waiting for information...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card text-dark">
+                    <h5 class="card-header">
+                        <div class="row">
+                            <div class="col">
+                                <h5 style="margin-top: 8px;">Audio</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <button id="x000mc-btn" class="btn btn-success">Start</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button id="_x000mc-btn" class="btn btn-danger">Stop</button>
+                            </div>
+                        </div>
+                    </h5>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h3 id="counter">00s</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="card text-dark">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button id="x000lm-btn" class="btn btn-warning text-light">Position</button>
+                            </div>
+                            <div class="col text-right">
+                                <div id="menu" class="text-center text-dark" style="margin-top: 8px;">
+                                    <input id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked" />
+                                    <label for="streets-v11">streets</label>
+                                    <input id="light-v10" type="radio" name="rtoggle" value="light" />
+                                    <label for="light-v10">light</label>
+                                    <input id="dark-v10" type="radio" name="rtoggle" value="dark" />
+                                    <label for="dark-v10">dark</label>
+                                    <input id="outdoors-v11" type="radio" name="rtoggle" value="outdoors" />
+                                    <label for="outdoors-v11">outdoors</label>
+                                    <input id="satellite-v9" type="radio" name="rtoggle" value="satellite" />
+                                    <label for="satellite-v9">satellite</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding: 0%;">
+                        <div id='map' class="col" style='height: 300px;'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</body>
+<script>
+    var deviceId = "{{ deviceId }}";
+</script>
+<script src="/static/map.js"></script>
+<script src="/static/pcmPlayer.js"></script>
+<script src="/static/main.js"></script>
+</html>
